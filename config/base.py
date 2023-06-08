@@ -3,19 +3,18 @@ from pathlib import Path
 import environ
 from django.utils.translation import gettext_lazy as _
 
-# region Django Core Settings
+from config import Environment
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# region Django Core Settings
+
 env = environ.Env(DEBUG=(bool, False))
-settings_module = env("DJANGO_SETTINGS_MODULE")
 
-environment = "Production"
-if "dev" in settings_module:
-    environ.Env.read_env(BASE_DIR / ".env")
-    environment = "Development"
+environment = Environment(env("DJANGO_SETTINGS_MODULE"))
 
-elif "stg" in settings_module or "stag" in settings_module:
-    environment = "Staging"
+if environment.is_local:
+    env.read_env(str(BASE_DIR / ".env"))
 
 SECRET_KEY = env("SECRET_KEY")
 
@@ -190,6 +189,10 @@ SPECTACULAR_SETTINGS = {
 # endregion
 
 # region Custom Apps
+
+# Core:
+# Core app for the project.
 INSTALLED_APPS.append("apps.core.apps.CoreConfig")
 LOCALE_PATHS.append(BASE_DIR / "apps/core/locale")
+
 # endregion
