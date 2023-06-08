@@ -14,7 +14,7 @@ env = environ.Env(DEBUG=(bool, False))
 environment = Environment(env("DJANGO_SETTINGS_MODULE"))
 
 if environment.is_local:
-    env.read_env(str(BASE_DIR / ".env"))
+    env.read_env(BASE_DIR / ".env")
 
 SECRET_KEY = env("SECRET_KEY")
 
@@ -76,12 +76,12 @@ WSGI_APPLICATION = "project_name.wsgi.application"
 # Database
 DATABASES = {
     "default": {
-        "ENGINE": env("DB_ENGINE", str, "django.db.backends.sqlite3"),
-        "NAME": env("DB_NAME", str, str(BASE_DIR / "db.sqlite3")),
-        "USER": env("DB_USER", str, None),
-        "PASSWORD": env("DB_PASSWORD", str, None),
-        "HOST": env("DB_HOST", str, None),
-        "PORT": env("DB_PORT", int, None),
+        "ENGINE": env("POSTGRES_ENGINE", str, "django.db.backends.postgresql"),
+        "NAME": env("POSTGRES_DB", str, str(BASE_DIR / "db.sqlite3")),
+        "USER": env("POSTGRES_USER", str, None),
+        "PASSWORD": env("POSTGRES_PASSWORD", str, None),
+        "HOST": env("POSTGRES_HOST", str, None),
+        "PORT": env("POSTGRES_PORT", int, None),
     }
 }
 
