@@ -1,0 +1,22 @@
+FROM python:3.9-slim-buster as base
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PATH="/scripts:${PATH}"
+ARG DEBIAN_FRONTEND=noninteractive
+EXPOSE 8000
+
+WORKDIR /opt/project
+
+# General installs
+RUN apt-get update && apt-get --no-install-recommends install -y git curl
+
+# Export requirements
+RUN pip install poetry
+COPY ./pyproject.toml ./poetry.lock* /opt/project/
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes --with dev
+
+RUN pip install --upgrade pip && pip install --no-cache -r requirements.txt
+
+COPY . .
+
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
