@@ -13,6 +13,9 @@ down-v:
 run:
 	python manage.py runserver 0.0.0.0:8000
 
+collectstatic:
+	python manage.py collectstatic --noinput
+
 migrations:
 	python manage.py makemigrations
 
