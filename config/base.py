@@ -186,6 +186,17 @@ SPECTACULAR_SETTINGS = {
     "TAGS": [{"name": "Name", "description": "description"}],
 }
 
+# django-solo:
+# Helps working with singletons - things like global settings that you want to edit
+# from the admin site.
+INSTALLED_APPS.append("solo")
+
+# django-jsonform:
+# A better, user-friendly JSON editing form field for Django admin.
+# Also supports Postgres ArrayField.
+INSTALLED_APPS.append("django_jsonform")
+
+
 # endregion
 
 # region Custom Apps
