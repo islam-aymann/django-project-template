@@ -7,19 +7,18 @@ from config import Environment
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# region Django Core Settings
+env = environ.Env()
 
-env = environ.Env(DEBUG=(bool, False))
-
-environment = Environment(env("DJANGO_SETTINGS_MODULE"))
-
-if environment.is_local:
+ENVIRONMENT = Environment(env("DJANGO_SETTINGS_MODULE"))
+if ENVIRONMENT.is_local:
     env.read_env(BASE_DIR / ".env")
+
+# region Django Core Settings
 
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = env("DEBUG", default=False)
-DEBUG_TOOLBAR = env("DEBUG_TOOLBAR", default=False)
+DEBUG = env("DEBUG", bool, False)
+DEBUG_TOOLBAR = env("DEBUG_TOOLBAR", bool, False)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -32,18 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
-MIDDLEWARE = []
-if DEBUG and DEBUG_TOOLBAR:  # Django Debug Toolbar needs to be initialized first
-    try:
-        import debug_toolbar
-
-        INSTALLED_APPS.append("debug_toolbar")
-        MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
-
-    except ImportError:
-        pass
-
-MIDDLEWARE += [
+MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -148,7 +136,11 @@ LOGGING = {
 # region Third Party Apps
 # whitenoise:
 # Radically simplified static file serving for Python web apps.
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = env(
+    "STATICFILES_STORAGE",
+    str,
+    "whitenoise.storage.CompressedStaticFilesStorage",
+)
 
 # djangorestframework:
 # Web APIs for Django.
@@ -195,7 +187,6 @@ INSTALLED_APPS.append("solo")
 # A better, user-friendly JSON editing form field for Django admin.
 # Also supports Postgres ArrayField.
 INSTALLED_APPS.append("django_jsonform")
-
 
 # endregion
 
