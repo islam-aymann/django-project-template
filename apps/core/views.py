@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.http import JsonResponse, HttpRequest
+from django.http import JsonResponse, HttpRequest, HttpResponse
+from django.shortcuts import render
 
 from apps.core.models import Post, Tag
 
@@ -50,8 +51,10 @@ def index(request: HttpRequest) -> JsonResponse:
                 "is_active": first_post.author.is_active,
                 "date_joined": first_post.author.date_joined,
             },
-            "tags": [
-                {"id": tag.id, "name": tag.name} for tag in first_post.tags.all()
-            ],
+            "tags": [{"id": tag.id, "name": tag.name} for tag in first_post.tags.all()],
         }
     )
+
+
+def home(request: HttpRequest) -> HttpResponse:
+    return render(request, "home.html")
