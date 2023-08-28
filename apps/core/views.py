@@ -5,7 +5,11 @@ from django.shortcuts import render
 from apps.core.models import Post, Tag
 
 
-def index(request: HttpRequest) -> JsonResponse:
+def index(request: HttpRequest) -> HttpResponse:
+    return render(request, "home.html")
+
+
+def home(request: HttpRequest) -> JsonResponse:
     first_post = Post.objects.select_related("author").prefetch_related("tags").first()
 
     if not first_post:
@@ -52,9 +56,6 @@ def index(request: HttpRequest) -> JsonResponse:
                 "date_joined": first_post.author.date_joined,
             },
             "tags": [{"id": tag.id, "name": tag.name} for tag in first_post.tags.all()],
-        }
+        },
+        json_dumps_params={"indent": 4},
     )
-
-
-def home(request: HttpRequest) -> HttpResponse:
-    return render(request, "home.html")

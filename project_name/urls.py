@@ -6,6 +6,7 @@ from django.urls import path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("apps.core.urls", namespace="core")),
+    path("", include("apps.secondary.urls", namespace="secondary")),
 ]
 
 if settings.DEBUG and settings.DEBUG_TOOLBAR:

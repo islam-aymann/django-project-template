@@ -197,4 +197,8 @@ INSTALLED_APPS.append("django_jsonform")
 INSTALLED_APPS.append("apps.core.apps.CoreConfig")
 LOCALE_PATHS.append(BASE_DIR / "apps/core/locale")
 
+# Secondary:
+# Secondary app for the project.
+INSTALLED_APPS.append("apps.secondary.apps.SecondaryConfig")
+LOCALE_PATHS.append(BASE_DIR / "apps/secondary/locale")
 # endregion
