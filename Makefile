@@ -10,21 +10,29 @@ down:
 down-v:
 	docker compose down -v
 
+sh:
+	docker compose exec -it web sh
+
+djsh:
+	docker compose exec -it web python manage.py shell
 run:
-	python manage.py runserver 0.0.0.0:8000
+	docker compose exec -it web python manage.py runserver 0.0.0.0:8000
 
 collectstatic:
-	python manage.py collectstatic --noinput
+	docker compose exec -it web python manage.py collectstatic --noinput
 
 migrations:
-	python manage.py makemigrations
+	docker compose exec -it web python manage.py makemigrations
 
 migrate:
-	python manage.py migrate
+	docker compose exec -it web python manage.py migrate
 
 superuser:
-	python manage.py createsuperuser_credentials
+	docker compose exec -it web python manage.py createsuperuser_credentials
 
 pre-commit:
 	pre-commit install
+
+poetry:
+	docker compose exec -it web poetry $(cmd)
 

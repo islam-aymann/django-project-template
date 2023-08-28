@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from apps.core.api.v1.serializers.post import PostSerializer
+from apps.core.api.v1.serializers import PostSerializer
 from apps.core.models import Post
 
 
