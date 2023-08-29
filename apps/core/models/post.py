@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from apps.core.models.profiles import Editor, Author
@@ -42,9 +43,10 @@ class Post(TimeStampedModelMixin):
 
     content_type = models.ForeignKey(
         ContentType,
+        on_delete=models.SET_NULL,
+        limit_choices_to=Q(app_label="core", model__in=["editor", "author"]),
         blank=True,
         null=True,
-        on_delete=models.SET_NULL,
     )
     object_id = models.PositiveIntegerField(blank=True, null=True)
     last_modified_by = GenericForeignKey("content_type", "object_id")
