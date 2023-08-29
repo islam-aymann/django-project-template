@@ -21,9 +21,9 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_select_related = ["author"]
+    list_select_related = ["author", "author__user"]
     raw_id_fields = ["author"]
-    list_display = ["id", "title", "status", "author", "created"]
-    list_filter = ["title", "status", "author", "created"]
+    list_display = ["id", "title", "status", "author", "last_modified_by", "created_at"]
+    list_filter = ["title", "status", "author", "created_at"]
     search_fields = ["title", "content", "tags__name"]
     filter_horizontal = ["tags"]
