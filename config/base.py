@@ -188,6 +188,58 @@ INSTALLED_APPS.append("solo")
 # Also supports Postgres ArrayField.
 INSTALLED_APPS.append("django_jsonform")
 
+# django-ckeditor:
+# Django admin CKEditor integration.
+INSTALLED_APPS += ["ckeditor"]
+CKEDITOR_CONFIGS = {
+    "default": {
+        "skin": "moono-lisa",
+        "toolbar_Basic": [["Source", "-", "Bold", "Italic"]],
+        "toolbar_Advanced": [
+            {
+                "name": "document",
+                "items": ["Source", "-", "Preview", "Print", "-"],
+            },
+            {
+                "name": "clipboard",
+                "items": [
+                    "Cut",
+                    "Copy",
+                    "Paste",
+                    "PasteText",
+                    "PasteFromWord",
+                    "-",
+                    "Undo",
+                    "Redo",
+                ],
+            },
+            {"name": "editing", "items": ["Find", "Replace", "-", "SelectAll"]},
+            {
+                "name": "paragraph",
+                "items": [
+                    "JustifyLeft",
+                    "JustifyCenter",
+                    "JustifyRight",
+                    "JustifyBlock",
+                    "-",
+                    "BidiLtr",
+                    "BidiRtl",
+                    "Language",
+                ],
+            },
+            {
+                "name": "basicstyles",
+                "items": ["Bold", "Italic", "Underline", "Strike", "-", "RemoveFormat"],
+            },
+            {"name": "custom_tools", "items": ["Preview", "Maximize"]},
+            {"name": "insert", "items": ["Image", "BulletedList"]},
+        ],
+        "toolbar": "Advanced",
+        "tabSpaces": 4,
+    }
+}
+
+
 # endregion
 
 # region Custom Apps

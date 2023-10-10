@@ -20,6 +20,7 @@ psycopg2-binary = "^2.9.6"
 django-solo = "^2.1.0"
 django-jsonform = "^2.19.0"
 pillow = "^10.0.0"
+django-ckeditor = "^6.7.0"
 
 
 [tool.poetry.group.dev.dependencies]

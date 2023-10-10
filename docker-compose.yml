@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   web:
+    container_name: django-project-template-web
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -18,6 +19,7 @@ services:
       - "8000:8000"
 
   db:
+    container_name: django-project-template-db
     image: postgres:15-alpine
     volumes:
       - core_db_data:/var/lib/postgresql/data/
@@ -36,6 +38,7 @@ services:
       - "5432:5432"
 
   minio:
+    container_name: django-project-template-minio
     image: bitnami/minio:latest
     volumes:
       - minio_data:/data

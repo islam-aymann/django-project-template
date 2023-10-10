@@ -1,4 +1,4 @@
-FROM python:3.10-slim as base
+FROM python:3.11-slim as base
 
 WORKDIR /tmp
 
@@ -8,7 +8,7 @@ COPY ./pyproject.toml ./poetry.lock* /tmp/
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 ARG DEBIAN_FRONTEND=noninteractive

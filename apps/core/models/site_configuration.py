@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_jsonform.models.fields import JSONField
 from solo.models import SingletonModel
+
 from apps.core.models.tag import Tag
 
 

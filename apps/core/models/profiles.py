@@ -22,7 +22,10 @@ class Profile(TimeStampedModelMixin):
         return self.user.get_full_name()
 
     def __str__(self) -> str:
-        return self.nickname or self.user.get_full_name()
+        return (
+            f"{self.__class__.__name__}(id={self.pk}, "
+            f"{self.nickname or self.user.get_full_name()})"
+        )
 
 
 class Editor(Profile):
